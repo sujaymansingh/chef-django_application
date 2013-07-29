@@ -45,6 +45,7 @@ django_application "coolApp" do
   environment_variables(
     "DJANGO_CONFIGURATION" => "Production"
   )
+end
 ```
 Will mean that DJANGO_CONFIGURATION is set up as a bash environment variable.
 ```bash
