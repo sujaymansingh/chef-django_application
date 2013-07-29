@@ -38,7 +38,8 @@ end
 If a hash of environment variables is supplied, then they will be added so
 that they are available to the virtual env.
 e.g.
-```django_application "coolApp" do
+```
+django_application "coolApp" do
   path "/opt/coolApp"
   user coolApp
   environment_variables(
