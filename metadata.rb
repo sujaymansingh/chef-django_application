@@ -1,7 +1,7 @@
 name             "django_application"
 maintainer       "dev"
 maintainer_email "dev@editd.com"
-version          "0.0.5"
+version          "0.0.6"
 
 depends "gunicorn", "= 1.1.0"
 depends "nginx", "= 1.7.0"

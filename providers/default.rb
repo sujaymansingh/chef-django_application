@@ -5,7 +5,7 @@ action :create do
   group = new_resource.group || user
 
   server = new_resource.server || "localhost:8080"
-  static_dir = new_resource.static_dir || "/opt/static/#{new_resource.name}"
+  static_dir = new_resource.static_dir || "/opt/static/"
 
   virtualenv = new_resource.virtualenv || "/opt/env/#{new_resource.name}"
   requirements = new_resource.requirements || "#{path}/requirements.pip"
@@ -109,6 +109,13 @@ action :create do
       :static_dir => static_dir
     )
     mode 0644
+  end
+
+  nginx_site new_resource.name do
+    enable true
+  end
+  nginx_site "default" do
+    enable false
   end
 
   # Set up a task in supervisorctl.
