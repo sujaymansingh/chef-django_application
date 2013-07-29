@@ -1,0 +1,30 @@
+upstream <%= @app_name %>_app {
+    server <%= @server %> fail_timeout=0;
+}
+
+server {
+    listen 80;
+    server_name _;
+
+    access_log <%= node[:nginx][:log_dir] %>/<%= @app_name %>-access.log;
+    error_log <%= node[:nginx][:log_dir] %>/<%= @app_name %>-error.log;
+
+    location / {
+        proxy_redirect          off;
+        proxy_set_header        Host            $host:$server_port;
+        proxy_set_header        X-Real-IP       $remote_addr;
+        proxy_set_header        X-Forwarded-For $proxy_add_x_forwarded_for;
+        client_max_body_size    512m;
+        client_body_buffer_size 128k;
+        proxy_connect_timeout   120s;
+        proxy_send_timeout      120s;
+        proxy_read_timeout      120s;
+        proxy_buffers           32 4k;
+
+        proxy_pass http://<%= @app_name %>_app;
+    }
+
+    location /static/ {
+        alias <%= @static_dir %>;
+    }
+}

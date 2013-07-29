@@ -1,4 +1,4 @@
-chef-django_application
-=======================
+chef-django_git_application
+===========================
 
-Sets up a typical django application
+Provisions a server to run a django application (the source code comes from a git application).
