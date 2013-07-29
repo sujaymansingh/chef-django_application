@@ -1,0 +1,3 @@
+<% @environment_variables.each do |name, value| %>
+export <%= name %>="<%= value %>"
+<% end %>

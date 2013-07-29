@@ -10,6 +10,8 @@ action :create do
   virtualenv = new_resource.virtualenv || "/opt/env/#{new_resource.name}"
   requirements = new_resource.requirements || "#{path}/requirements.pip"
 
+  environment_variables = new_resource.environment_variables || {}
+
   # The directory within the main path that contains the settings module.
   # Usually this will be the main name of the app.
   # E.g.
@@ -50,6 +52,31 @@ action :create do
     recursive true
     owner user
     group group
+  end
+
+  # This is a bit ugly but I can't find a nicer way to get variables into the
+  # virtual env.
+  # First we create a file with export statements for each variable.
+  #
+  template "#{virtualenv}/bin/custom_variables" do
+    source "custom_variables.erb"
+    cookbook "django_application"
+    owner user
+    group group
+    variables(
+      :environment_variables => environment_variables
+    )
+    mode 0644
+  end
+  # Then we add a line to source that custom variables file when we activate
+  # the virtualenv. (We should avoid appending more than once.)
+  #
+  bash "append_to_activate" do
+    user user
+    code <<-EOF
+      echo "source custom_variables" >> #{virtualenv}/bin/activate
+    EOF
+    not_if "grep -q custom_variables #{virtualenv}/bin/activate"
   end
 
   execute "collect static files" do

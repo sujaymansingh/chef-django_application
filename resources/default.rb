@@ -10,6 +10,7 @@ attribute :requirements, :kind_of => String, :required => false
 attribute :server, :kind_of => String, :required => false
 attribute :static_dir, :kind_of => String, :required => false
 attribute :container_dir, :kind_of => String, :required => false
+attribute :environment_variables, :kind_of => Hash, :required => false
 
 
 def initialize(*args)

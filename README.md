@@ -16,6 +16,7 @@ attribute :requirements, :kind_of => String, :required => false
 attribute :server, :kind_of => String, :required => false
 attribute :static_dir, :kind_of => String, :required => false
 attribute :container_dir, :kind_of => String, :required => false
+attribute :environment_variables, :kind_of => Hash, :required => false
 ```
 
 
@@ -31,6 +32,24 @@ django_application "coolApp" do
   path "/opt/coolApp"
   user coolApp
 end
+```
+
+##Environment variables
+If a hash of environment variables is supplied, then they will be added so
+that they are available to the virtual env.
+e.g.
+```django_application "coolApp" do
+  path "/opt/coolApp"
+  user coolApp
+  environment_variables(
+    "DJANGO_CONFIGURATION" => "Production"
+  )
+```
+Will mean that DJANGO_CONFIGURATION is set up as a bash environment variable.
+```bash
+vagrant@coolapp:~$ . /opt/env/coolApp/bin/activate
+(coolApp)vagrant@coolapp:~$ echo $DJANGO_CONFIGURATION
+Production
 ```
 
 
