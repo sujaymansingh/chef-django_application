@@ -1,6 +1,6 @@
 [program:<%= @app_name %>]
 command=<%= @env_home %>/bin/gunicorn_django -c /etc/gunicorn/<%= @app_name %>.py
-environment=HOME='<%= @env_home %>'
+environment=HOME='<%= @env_home %>'<% @environment_variables.each do |name, value| %>;<%= name %>="<%= value %>"<% end %>
 autostart=true
 autorestart=true
 directory=<%= @container_dir %>

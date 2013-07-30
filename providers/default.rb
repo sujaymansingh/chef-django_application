@@ -131,6 +131,7 @@ action :create do
       :user => user,
       :app_home => path,
       :container_dir => container_dir,
+      :environment_variables => environment_variables,
       :env_home => virtualenv
     )
     mode 0644
