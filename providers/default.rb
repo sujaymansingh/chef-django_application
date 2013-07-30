@@ -54,11 +54,11 @@ action :create do
     group group
   end
 
-  #execute "collect static files" do
-  #  command "#{virtualenv}/bin/python manage.py collectstatic --noinput"
-  #  cwd path
-  #  environment environment_variables
-  #end
+  execute "collect static files" do
+    command "#{virtualenv}/bin/python manage.py collectstatic --noinput"
+    cwd path
+    environment environment_variables
+  end
 
   # This is a bit ugly but I can't find a nicer way to get variables into the
   # virtual env.
