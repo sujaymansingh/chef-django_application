@@ -5,7 +5,7 @@ action :create do
   group = new_resource.group || user
 
   server = new_resource.server || "localhost:8080"
-  static_dir = new_resource.static_dir || "/opt/static/"
+  static_dir = new_resource.static_dir || "/opt/static/#{new_resource.name}"
 
   virtualenv = new_resource.virtualenv || "/opt/env/#{new_resource.name}"
   requirements = new_resource.requirements || "#{path}/requirements.pip"
